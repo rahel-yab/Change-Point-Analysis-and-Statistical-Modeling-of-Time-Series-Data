@@ -37,11 +37,10 @@ birhan-energies-analysis/
 │   └── 02_bayesian_modeling.ipynb   # PyMC change-point model
 ├── backend/                 # Flask API
 ├── frontend/                # React dashboard
-├── reports/                 # Interim and final reports
 └── README.md
 ```
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 Language: Python 3.x
 
