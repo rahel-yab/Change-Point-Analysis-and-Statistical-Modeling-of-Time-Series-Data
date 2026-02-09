@@ -1,23 +1,20 @@
-# Use a slim version of Python 3.12
 FROM python:3.12-slim
-
-# Set the working directory
 WORKDIR /app
 
-# Install system dependencies (needed for some math libraries)
+# Install build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install
+# Copy requirements from root (assuming context is root)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the backend code
-COPY . .
+# Copy only the backend folder
+COPY backend/ ./backend/
 
-# Expose the Flask port
+# Set working directory to where app.py is
+WORKDIR /app/backend
+
 EXPOSE 5000
-
-# Start with Gunicorn (4 workers is a good standard for production)
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
