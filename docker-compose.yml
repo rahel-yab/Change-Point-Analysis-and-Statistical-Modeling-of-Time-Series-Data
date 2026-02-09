@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .                   # The root folder
+      dockerfile: backend/Dockerfile # Path to the Dockerfile
+    container_name: birhan-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app # Useful for development hot-reloading
+    environment:
+      - FLASK_ENV=production
+
+  frontend:
+    build: ./frontend
+    container_name: birhan-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
