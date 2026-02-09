@@ -82,7 +82,7 @@ Trace plots used to inspect sampling behavior
 
 Clone the Repository
 ```bash
-git clone https://github.com/your-username/birhan-energies-analysis.git
+git clone https://github.com/rahel-yab/birhan-energies-analysis.git
 cd birhan-energies-analysis
 ```
 
