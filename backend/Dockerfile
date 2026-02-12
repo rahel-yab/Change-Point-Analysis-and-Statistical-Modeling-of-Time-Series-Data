@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy only the backend folder
-COPY backend/ ./backend/
+COPY . .
 
 # Set working directory to where app.py is
 WORKDIR /app/backend
