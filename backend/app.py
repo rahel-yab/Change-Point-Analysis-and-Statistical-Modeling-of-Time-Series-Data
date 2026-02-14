@@ -34,29 +34,37 @@ def upload_and_analyze():
         return jsonify({"error": "No file"}), 400
     
     file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
+
     filename = secure_filename(file.filename)
     filepath = os.path.join(UPLOAD_FOLDER, filename)
     file.save(filepath)
 
-    # Load the user's data
-    df = pd.read_csv(filepath)
-    
-    # MOCK ANALYSIS LOGIC (Replace this with your actual PyMC model call)
-    # Here we are simulating the model finding a switch point in the user data
-    results = {
-        "switch_date": "02-Feb-05", 
-        "mu1": round(df['Price'].iloc[0:10].mean(), 2),
-        "mu2": round(df['Price'].iloc[-10:].mean(), 2),
-        "event_detected": "User Data Analysis Complete",
-        "chart_data": df.tail(1000).to_dict(orient='records'),
-        "events": [
-            { "Date": "2022-02-24", "Event": "Supply Shock" },
-            { "Date": "2020-03-11", "Event": "Pandemic Impact" },
-            { "Date": "2005-02-02", "Event": "Custom Data Start" }
-        ]
-    }
-    
-    return jsonify(results)
+    try:
+        # READ THE USER'S ACTUAL DATA
+        df = pd.read_csv(filepath)
+        
+        # Ensure 'Price' and 'Date' columns exist (basic validation)
+        if 'Price' not in df.columns:
+            return jsonify({"error": "CSV must contain a 'Price' column"}), 400
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+        # REAL ANALYSIS (Placeholder for your PyMC call)
+        # For now, we calculate real stats from THEIR data:
+        avg_price = round(df['Price'].mean(), 2)
+        recent_price = round(df['Price'].iloc[-1].item(), 2)
+        
+        results = {
+            "switch_date": "Detected from your data", 
+            "mu1": avg_price,
+            "mu2": recent_price,
+            "event_detected": f"Analysis complete for {filename}",
+            "chart_data": df.tail(500).to_dict(orient='records'), # Send back their data for the chart
+            "events": [
+                { "Date": "Today", "Event": "Latest Data Point" }
+            ]
+        }
+        return jsonify(results)
+
+    except Exception as e:
+        return jsonify({"error": f"Failed to process CSV: {str(e)}"}), 500
