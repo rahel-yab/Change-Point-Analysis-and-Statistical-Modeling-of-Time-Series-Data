@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Replace with your actual Render URL after you deploy the backend
-const RENDER_URL = 'https://your-backend-name.onrender.com/api';
+
+const RENDER_URL = 'https://change-point-analysis-and-statistical.onrender.com/';
 
 const API = axios.create({ 
   baseURL: import.meta.env.MODE === 'production' 
