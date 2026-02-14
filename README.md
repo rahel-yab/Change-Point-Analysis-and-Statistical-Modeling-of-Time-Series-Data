@@ -1,110 +1,111 @@
-# 📊 Brent Oil Price Change Point Analysis  
-**Statistical Modeling & Geopolitical Impact Assessment**
+# 📊 Market Intelligence: Brent Oil Change Point Analysis
+**Bayesian Statistical Modeling & Geopolitical Impact Assessment Dashboard**
 
 ## 🏢 Business Overview
-Birhan Energies provides data-driven strategic advice to stakeholders in the energy sector.  
-This project analyzes the volatility of Brent oil prices from **1987–2022** to understand how political decisions, conflicts, international sanctions, and OPEC policy changes influence global markets.
+Developed for **Birhan Energies**, this platform provides data-driven strategic advice for the energy sector. Global energy markets are highly sensitive to geopolitical shifts; this project quantifies that sensitivity by analyzing Brent oil price volatility from **1987–2022**.
 
-The objective is to give **investors and policymakers quantified insights** into how specific historical **change points** have shifted the mean price level and volatility of oil.
+The system identifies "Structural Breaks"—moments where the market regime shifted fundamentally due to conflicts, OPEC policy changes, or global economic shocks—giving investors and policymakers quantified insights into historical market behavior.
 
 ---
 
 ## 🚀 Key Features
 
-- **Bayesian Change Point Detection**  
-  Uses Markov Chain Monte Carlo (MCMC) methods with **PyMC** to identify structural breaks in the time series.
+- **Interactive Bayesian Analysis**: Upload custom `.csv` price data to trigger real-time statistical analysis of market regimes.
+- **Change Point Detection**: Utilizes **PyMC** (Markov Chain Monte Carlo) to infer the most probable date of a market shift ($\tau$).
+- **Regime Comparison**: Automatically calculates and compares mean price levels ($\mu_1$ vs $\mu_2$) before and after detected events.
+- **Geopolitical Mapping**: Correlates statistical anomalies with major global events (e.g., OPEC shifts, Pandemic impacts, Supply shocks).
+- **Hybrid Cloud Deployment**: Optimized performance using a split-stack architecture (React on Vercel, Flask/PyMC on Render).
 
-- **Time Series Analysis**  
-  Includes exploratory data analysis (EDA), stationarity testing (ADF), trend analysis, and log-return volatility clustering.
+---
 
-- **Event Correlation**  
-  Maps statistically detected change points to a curated dataset of **10+ major geopolitical events**.
+## 🛠️ Tech Stack
 
-- **Interactive Dashboard**  
-  A **Flask + React** web application that enables visual exploration of price shocks and Bayesian model outputs.
+- **Frontend**: React.js, Vite, Tailwind CSS, Axios, Lucide React (Icons).
+- **Backend**: Flask (Python), Gunicorn.
+- **Modeling & Data Science**: 
+  - **PyMC**: Bayesian modeling and MCMC sampling.
+  - **ArviZ**: Exploratory analysis of Bayesian models.
+  - **Pandas/NumPy**: Data manipulation.
+  - **Statsmodels**: ADF stationarity testing.
+- **Deployment**: 
+  - **Vercel**: Frontend hosting (optimized for Vite).
+  - **Render**: Dockerized backend environment for persistent Python services.
+
+---
+
+## 📈 Methodology
+
+### 1. Bayesian Structural Break Model
+The core analysis treats the change point as a random variable $\tau$. The model is defined as:
+- **Prior for $\tau$**: A discrete uniform distribution across the entire time series.
+- **Priors for $\mu$**: Exponential distributions representing the mean price before and after the break.
+- **Likelihood**: The observed prices are modeled as a Poisson or Normal distribution (depending on the data transformation).
+
+
+
+### 2. Statistical Validation
+- **Stationarity**: Augmented Dickey-Fuller (ADF) tests are used to determine if the series requires log-return transformation.
+- **Convergence**: Model health is verified using **R-hat** statistics and trace plot inspection to ensure sampling stability.
 
 ---
 
 ## 📁 Project Structure
 
 ```plaintext
-birhan-energies-analysis/
-├── data/
-│   ├── raw/                 # Original Brent price CSV
-│   └── processed/           # Cleaned data & event_list.csv
-├── notebooks/
-│   ├── 01_eda_and_research.ipynb    # Data cleaning & EDA
-│   └── 02_bayesian_modeling.ipynb   # PyMC change-point model
-├── backend/                 # Flask API
-├── frontend/                # React dashboard
-└── README.md
+change-point-analysis/
+├── backend/                # Flask API & Bayesian Logic
+│   ├── data/               # Processed datasets (CSV)
+│   ├── app.py              # Flask API Entry point
+│   ├── __init__.py         # Package marker
+│   └── requirements.txt    # Python dependencies
+├── frontend/               # React Dashboard
+│   ├── src/
+│   │   ├── api/            # Axios API configuration
+│   │   ├── components/     # UI StatCards, Sidebar, PriceCharts
+│   │   └── App.jsx         # Main Dashboard logic
+│   └── package.json        # Node.js dependencies
+├── notebooks/              # Research & PyMC Model Prototyping
+├── Dockerfile              # Backend containerization
+├── vercel.json             # Frontend deployment config
+└── README.md               # Project documentation
 ```
 
-## 🛠️ Tech Stack
+--- 
 
-Language: Python 3.x
+## 🔧 Installation & Local Setup
 
-Modeling: PyMC, ArviZ
-
-Data Analysis: Pandas, NumPy, Statsmodels
-
-Visualization: Matplotlib, Seaborn
-
-Web Stack: Flask (Backend), React.js (Frontend)
-
-## 📈 Methodology
-
-### Exploratory Data Analysis (EDA)
-
-Visual inspection of price trends and volatility
-
-Augmented Dickey-Fuller (ADF) test for stationarity
-
-## Bayesian Change Point Modeling
-
-Defined a Bayesian model where:
-
-τ (tau) represents the change point (market regime shift date)
-
-μ₁ is the mean price before τ
-
-μ₂ is the mean price after τ
-
-The model samples from the posterior distribution to infer the most probable change point and regime means.
-
-## Validation
-
-Model convergence checked using R-hat statistics
-
-Trace plots used to inspect sampling behavior
-
-### 🔧 Installation & Setup
-
-Clone the Repository
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/rahel-yab/birhan-energies-analysis.git
-cd birhan-energies-analysis
+git clone [https://github.com/rahel-yab/change-point-analysis.git](https://github.com/rahel-yab/change-point-analysis.git)
+cd change-point-analysis
 ```
 
-### Environment Setup
-```bash
+### 2. Backend Setup (Python)
+```Bash
+cd backend
 python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
+python app.py
 ```
+### 3. Frontend Setup (React/Vite)
+```Bash
+cd ../frontend
+npm install
+npm run dev
+```
+---
 
-### Run the Analysis
+## 🤝 Contribution Guidelines
 
-Open Jupyter Notebook
+Contributions are welcome. To contribute:
 
-Run notebooks/01_eda_and_research.ipynb
+- Fork the Project
 
-Then run notebooks/02_bayesian_modeling.ipynb
+- Create your Feature Branch (git checkout -b feature/new_feature)
 
-## 📝 Assumptions & Limitations
+- Commit your Changes (git commit -m 'Add some new_feature')
 
-The current implementation assumes a single change point.
-Multiple regime shifts would require a hierarchical or multi-change-point model.
+- Push to the Branch (git push origin feature/new_feature)
 
-Economic shocks may have delayed market responses.
-Detected statistical breaks can lag behind real-world events.
+- Open a Pull Request
