@@ -76,7 +76,7 @@ change-point-analysis/
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/rahel-yab/change-point-analysis.git](https://github.com/rahel-yab/change-point-analysis.git)
+git clone https://github.com/rahel-yab/Change-Point-Analysis-and-Statistical-Modeling-of-Time-Series-Data.git
 cd change-point-analysis
 ```
 
