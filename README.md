@@ -77,7 +77,7 @@ change-point-analysis/
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/rahel-yab/Change-Point-Analysis-and-Statistical-Modeling-of-Time-Series-Data.git
-cd change-point-analysis
+cd Change-Point-Analysis-and-Statistical-Modeling-of-Time-Series-Data
 ```
 
 ### 2. Backend Setup (Python)
